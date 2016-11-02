@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "dotenv": "^2.0.0",
+    "raven": "^0.12.1",
+    "typescript": "^2.0.6"
+  }
+}
