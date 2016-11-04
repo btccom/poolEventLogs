@@ -1,5 +1,4 @@
 declare module 'raven' {
-    export interface RavenClient;
     export var Client: ClientConstructor;
 }
 
