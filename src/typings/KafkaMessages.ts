@@ -22,4 +22,5 @@ interface IMinerActivityEventContent {
 
 interface IMinerActivity extends IMinerActivityEventContent {
     id: string;
+    created_at: number;
 }
