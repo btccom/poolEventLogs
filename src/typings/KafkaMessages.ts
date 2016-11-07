@@ -4,7 +4,7 @@ interface ICommonEvents {
     offset: number;
     partition: number;
     key: number;
-} 
+}
 
 interface IMinerActivityEvent {
     created_at: string;
@@ -20,7 +20,11 @@ interface IMinerActivityEventContent {
     ip: string;
 }
 
-interface IMinerActivity extends IMinerActivityEventContent {
-    id: string;
+interface IMinerActivity {
+    event_id: string;
+    event_name: string;
     created_at: number;
+    content: {
+        worker_name: string;
+    };
 }

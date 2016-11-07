@@ -1,0 +1,12 @@
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const logs = document.querySelector('#logs');
+  const socket = io('/?puid=1842');
+  socket.on('logs', function (data) {
+    console.log('logs', data);
+  });
+
+  socket.on('latest_logs', data => {
+    console.log('latest_logs', data);
+  });
+</script>

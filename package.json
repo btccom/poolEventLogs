@@ -2,10 +2,10 @@
   "scripts": {
     "build": "npm run clean && tsc --outDir build",
     "watch": "npm run clean && tsc --outDir build -w",
-    "clean": "rm -rf build/* && find src -name '*.js' -delete && rm -rf log/*.log"
+    "clean": "rm -rf build/* && find src -name '*.js' -delete && rm -rf log/*.log",
+    "precommit": "find src -name '*.ts' | xargs tslint --typecheck"
   },
   "dependencies": {
-    "@types/node-uuid": "^0.0.28",
     "bluebird": "^3.4.6",
     "dotenv": "^2.0.0",
     "hiredis": "^0.5.0",
@@ -26,9 +26,12 @@
     "@types/lodash": "^4.14.38",
     "@types/moment": "^2.13.0",
     "@types/node": "^6.0.46",
+    "@types/node-uuid": "^0.0.28",
     "@types/socket.io": "^1.4.27",
     "@types/winston": "^0.0.29",
+    "husky": "^0.11.9",
     "nodemon": "^1.11.0",
+    "tslint": "^3.15.1",
     "typescript": "^2.0.6"
   }
 }

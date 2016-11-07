@@ -5,16 +5,16 @@ import path = require('path');
 import raven = require('raven');
 import dotenv = require('dotenv');
 
-// 替换全局 Promise 实现
+// replace es6 promise with bluebird
 global.Promise = Promise;
 
-// 加载配置
+// load config
 dotenv.config({
     path: path.join(__dirname, '../../.env'),
 });
 
-// 添加异常捕获
+// use sentry to capture exceptions
 const ravenClient = new raven.Client(process.env.SENTRY_DSN);
-if (process.env.APP_DEBUG == 'false') {
+if (process.env.APP_DEBUG === 'false') {
     ravenClient.patchGlobal();
 }
