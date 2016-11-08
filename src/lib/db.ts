@@ -9,7 +9,7 @@ export default knex({
         password: process.env.MYSQL_PASSWORD,
         database: process.env.MYSQL_DBNAME,
     },
-    debug: process.env.APP_DEBUG == 'true',
+    debug: process.env.APP_DEBUG === 'true',
     pool: {
         min: 0,
         max: 20

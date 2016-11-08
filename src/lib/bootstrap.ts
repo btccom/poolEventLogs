@@ -15,6 +15,12 @@ dotenv.config({
 
 // use sentry to capture exceptions
 const ravenClient = new raven.Client(process.env.SENTRY_DSN);
+
 if (process.env.APP_DEBUG === 'false') {
     ravenClient.patchGlobal();
+
+    // Bluebird unhandledRejection
+    process.on('unhandledRejection', function(reason: any, promise: Promise<any>) {
+        throw reason;       // sentry will catch it
+    });
 }

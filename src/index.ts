@@ -14,7 +14,7 @@ const logger = getLogger('service');
 const LATEST_LOGS_COUNT = 100;
 const RING_BUFFER_LENGTH = 10000;
 const WINDOW_BUFFER_LENGTH = 2000;
-const WINDOW_BUFFER_DURATION = 1000;      //ms
+const WINDOW_BUFFER_DURATION = 1000;      // ms
 
 /// REDIS
 logger.info(`connecting to redis`);
@@ -42,8 +42,8 @@ logger.info(`listening on ${process.env.PORT || 3000}`);
 
 interface IUserMap {
     [puid: string]: {
-        [id: string] : SocketIO.Socket
-    }
+        [id: string]: SocketIO.Socket;
+    };
 };
 
 const userMap: IUserMap = {};
