@@ -66,7 +66,6 @@ io.on('connection', async socket => {
 
         if (Object.keys(userMap[puid]).length === 0) {
             delete userMap[puid];
-            redis.del(makeWindowKey(puid));
         }
     });
 });
@@ -120,6 +119,7 @@ consumer.on('message', (message: ICommonEvents) => {
     const windowKey = makeWindowKey(event.content.user_id);
     redis.lpush(windowKey, value);
     redis.ltrim(windowKey, 0, WINDOW_BUFFER_LENGTH - 1);
+    redis.expire(windowKey, Math.ceil(WINDOW_BUFFER_DURATION / 1000));
 });
 
 consumer.on('error', (err: any) => {
@@ -128,6 +128,7 @@ consumer.on('error', (err: any) => {
 
 (async function digest() {
     const promises = Object.keys(userMap).map(async (puid: string) => {
+        // just ignore the race condition
         const windowKey = makeWindowKey(+puid);
         const len = await redis.llen(windowKey);
         const skipCount = Math.max(0, len - WINDOW_BUFFER_LENGTH);
