@@ -1,7 +1,7 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
   const logs = document.querySelector('#logs');
-  const socket = io('/?puid=1842');
+  const socket = io('/?puid=1842&access_key=g4zOxRMkKUYV36uNaWXMuq7rQY0juEgXZGqGwxsL');
   socket.on('logs', function (data) {
     console.log('logs', data);
   });

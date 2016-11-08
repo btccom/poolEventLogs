@@ -8,6 +8,7 @@ import fs = require('fs');
 import SocketIO = require('socket.io');
 import Redis = require('ioredis');
 import moment = require('moment');
+import socketAuth from './auth';
 const logger = getLogger('service');
 
 const LATEST_LOGS_COUNT = 100;
@@ -35,9 +36,9 @@ redis.on('error', e => {
 /// SOCKET.IO
 const app = http.createServer(handler);
 const io = SocketIO(app);
+io.use(socketAuth);
 app.listen(process.env.PORT || 3000);
 logger.info(`listening on ${process.env.PORT || 3000}`);
-
 
 interface IUserMap {
     [puid: string]: {
