@@ -31,5 +31,5 @@ cp .env.example .env
 # edit config
 vim .env
 # build & run
-node build/bin/run.js
+node build/index
 ```
