@@ -119,7 +119,6 @@ consumer.on('message', (message: ICommonEvents) => {
     if (!userMap[event.content.user_id]) return;
     const windowKey = makeWindowKey(event.content.user_id);
     redis.lpush(windowKey, value);
-    redis.ltrim(windowKey, 0, WINDOW_BUFFER_LENGTH - 1);
     redis.expire(windowKey, Math.ceil(WINDOW_BUFFER_DURATION / 1000));
 });
 
