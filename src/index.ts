@@ -87,10 +87,21 @@ function handler(req: http.IncomingMessage, res: http.ServerResponse) {
 /// KAFKA
 logger.info(`kafkaConsumer starting`);
 const client = new kafka.Client(process.env.ZK_CONNECTION_STRING, `bpool-event-logs-consumer.${process.env.HOST}`);
+const offset = new kafka.Offset(client);
 const topic = 'CommonEvents';
 const consumer = new kafka.Consumer(client, [ { topic } ], {});
 logger.info(`subscribe topic: ${topic}`);
 
+consumer.on('offsetOutOfRange', (topic: kafka.OffsetRequest) => {
+    topic.maxNum = 2;
+    offset.fetch([topic], function (err, offsets) {
+        if (err) {
+            return console.error(err);
+        }
+        const min = Math.min(offsets[topic.topic][topic.partition]);
+        consumer.setOffset(topic.topic, topic.partition, min);
+    });
+});
 consumer.on('message', (message: ICommonEvents) => {
     logger.debug(`kafka message: ${JSON.stringify(message)}`);
 
